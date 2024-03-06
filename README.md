@@ -1,3 +1,21 @@
+# Devsisters 관련 맥락
+Redis snapshot ETL을 위해 사용하는 해당 라이브러리가 Redis version 7 이후로 더 이상 maintain 되지 않아, Redis 7을 지원할 수 있도록 변경점을 추가하고 별도로 관리하도록 합니다.
+
+Original repository
+- https://github.com/sripathikrishnan/redis-rdb-tools
+Redis 7 관련 변경점 PR (original repository)
+- https://github.com/sripathikrishnan/redis-rdb-tools/pull/193
+
+## Build and deploy
+```sh
+    python setup.py bdist_wheel
+
+    aws s3 cp --acl public-read dist/rdbtools-0.1.15-py3-none-any.whl s3://devsisters-pub-data-platform-static/redis-rdb-tools/rdbtools-0.1.15-py3-none-any.whl
+```
+
+이후 cupcake 등의 프로젝트에서 위의 wheel 파일을 직접 가져와서 사용하는 방식으로 rdb 파일을 읽을 수 있습니다.
+
+
 # Parse Redis dump.rdb files, Analyze Memory, and Export Data to JSON #
 
 Rdbtools is a parser for Redis' dump.rdb files. The parser generates events similar to an xml sax parser, and is very efficient memory wise.
